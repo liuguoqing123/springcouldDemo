@@ -1,0 +1,17 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8092
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/guoqingliu_1001/springcould-config
+          #search-paths: config-repo
+          username: 279189435@qq.com
+          password: lgq5201314

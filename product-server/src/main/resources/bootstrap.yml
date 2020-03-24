@@ -1,0 +1,37 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    #指定了配置文件的应用名
+    name: product-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+  cloud:
+      config:
+        discovery:
+          service-id: config-server
+          enabled: true
+          #Config server的uri
+          #uri: http://localhost:7001/
+          #指定的环境
+          #profile: dev
+          #指定分支
+        label: master
+management:
+  security:
+    enabled: false     #SpringBoot 1.5.X 以上默认开通了安全认证，如果不关闭会要求权限
+
+springboot:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  type-aliases-package: com.springcloud.productapi.entity
+  mapper-locations: classpath:com/springcloud/productserver/mapper/*.xml
+
+
+

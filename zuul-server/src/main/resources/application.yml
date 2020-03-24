@@ -1,0 +1,41 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+server:
+  port: 9000
+spring:
+  application:
+    name: zuul-server
+
+zuul:
+  routes:
+    #ignoredPatterns: /*-product/**
+    #路由名称
+    order-server-route:
+    #(针对微服务名称的)访问路径
+      path: /order/*
+      #微服务名称
+      serviceId: order-server
+      #是否需要添加前缀
+      strip-prefix: false
+    product-server-route:
+      path: /product/*
+      serviceId: product-server
+      strip-prefix: false
+    test-server-route:
+      path: /test/*
+      serviceId: test-server
+      #忽略某个微服务不走网关
+  #ignored-services: product-server
+   #默认的是过滤header中的cookie,set,cookie,cuth，不配的话就是不过滤
+  sensitive-headers:
+  retryable: true
+
+ribbon:
+  #对当前实例的重试次数
+  MaxAutoRetries: 3
+  #切换实例的重试次数
+  MaxAutoRetriesNextServer: 0
+
+

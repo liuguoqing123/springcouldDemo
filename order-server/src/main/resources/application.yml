@@ -1,0 +1,61 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8091
+spring:
+  application:
+    name: order-server
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+
+product-server:
+  ribbon:
+# 自定义负载均衡策略
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    #com.netflix.loadbalancer.WeightedResponseTimeRule
+    #超时尝试调用多少次
+ #   MaxAutoRetries: 0
+    #超时不再调用下一台机器
+ #   MaxAutoRetriesNextServer: 0
+
+#超时等待时间设置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+        #默认是false，当超时时降级操作，调用兜底数据
+  hystrix:
+    enabled: true
+
+
+hystrix:
+  command:
+    default:
+      execution:
+      #不开启超时   一般不设置 ，不关的。
+#        timeout:
+ #         enable: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+#dashboard 可视化界面监视断路器hystrix的一个情况 （http://localhost:8091/hystrix 地址栏输入http://localhost:8091/actuator/hystrix.stream）
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
