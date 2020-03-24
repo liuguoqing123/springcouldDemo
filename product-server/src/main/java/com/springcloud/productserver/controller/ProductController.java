@@ -31,7 +31,6 @@ public class ProductController {
 //        return "config配置中心："+env;
 //    }
 
-
     @RequestMapping("/findById")
     public Product findById(@RequestParam("id") Long id){
         Product product = productService.find(id);
